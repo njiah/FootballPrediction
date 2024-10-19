@@ -1,0 +1,196 @@
+<!-- Ngwe Sandar Linn 21003873-->
+
+{% extends "home.html" %}
+{% block title %} Profiles {% endblock %}
+
+{% block nav %}
+
+        <!-- NavBar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <!-- NavBar Logo-->
+              <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for ('index') }}" al>
+                  <img clas="navbar-logo" src="{{ url_for ('static', filename='/images/logos/logo-v1.png') }}" width="30px" height="30px">
+                </a>
+              </div>
+
+              <!-- NavBar Nav -->
+              <ul class="nav navbar-nav">
+                <li><a href="{{ url_for ('index') }}">Home</a></li>
+                <li><a href="{{ url_for ('tables') }}">Tables</a></li>
+                <li class="active"><a href="/profiles/{{playerInfo['PLAYER NAME']}}">Profiles</a></li>
+
+              </ul>
+            </div>
+          </nav>
+          {% endblock %}
+
+ {% block content %}
+          <!-- Top Profile bar-->
+          <div class="container emp-profile">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="profile-image">
+                  <img src="{{ url_for ('static', filename='/images/logos/blank-profile-picture.png') }}" height="50px" width="50px">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="profile-head">
+                  <h5>{{playerInfo['PLAYER NAME']}}</h5>
+                  <h6>{{playerInfo['CURRENT TEAM']}}</h6>
+                  <p class="winrate">Current Win Rate : <span>{{playerInfo['Win Percentage']}}</span></p>
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Market Value</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Stats</a>
+                    </li>
+                </ul>
+                </div>
+              </div>
+            </div>
+            <!--left info -->
+            <div class="row">
+              <div class="col-md-4">
+                <div class="profile-work">
+                  <p> Personal Details </p>
+                  Gender : {{playerInfo['GENDER']}}<br/>
+                  Signed up date : {{playerInfo['DATE SIGNED UP']}}<br/>
+                  Contract start date : {{playerInfo['START OF CONTRACT']}}<br/>
+                  Contract duration : {{playerInfo['CONTRACT DURATION']}}<br/>
+                  Current Market Value : {{playerInfo['Current Value']}}k<br/>
+                  <input type="hidden" id="FG1" value ="{{playerInfo['FG1 Value']}}"/> 
+                    <input type="hidden" id="FG2" value ="{{playerInfo['FG2 Value']}}"/>     
+                    <input type="hidden" id="FG3" value ="{{playerInfo['FG3 Value']}}"/>     
+                    <input type="hidden" id="FG4" value ="{{playerInfo['FG4 Value']}}"/>     
+                    <input type="hidden" id="FG5" value ="{{playerInfo['FG5 Value']}}"/>
+                    <input type="hidden" id="winRate" value ="{{playerInfo['Win Percentage']}}"/>
+                    <input type="hidden" id="WR5" value ="{{playerInfo['Win Rate after FG5']}}"/>
+                </div>
+              </div>
+              <!-- Market Value Tabs-->
+              <div class="col-md-8">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label> After FG1 : </label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{playerInfo['FG1 Value']}}k</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                          <label> After FG2 : </label>
+                        </div>
+                        <div class="col-md-6">
+                          <p>{{playerInfo['FG2 Value']}}k</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                          <label> After FG3 : </label>
+                        </div>
+                        <div class="col-md-6">
+                          <p>{{playerInfo['FG3 Value']}}k</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                          <label> After FG4 : </label>
+                        </div>
+                        <div class="col-md-6">
+                          <p>{{playerInfo['FG4 Value']}}k</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                          <label> After FG5 : </label>
+                        </div>
+                        <div class="col-md-6">
+                          <p>{{playerInfo['FG5 Value']}}k</p>
+                        </div>
+                  </div>
+                  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="row">
+                        <div class="col-md-6"><canvas id="chart0" style="width:100%;max-width:500px" class="charts"></canvas></div>
+                        <div class="col-md-6"><canvas id="chart1" style="width:100%;max-width:500px" class="charts"></canvas></div>
+                      </div>
+                      <script>
+                        let winrate = new Number(document.getElementById('winRate').value);
+                        let WR5 = new Number(document.getElementById('WR5').value);
+                            var xValues = ["Win Percentage"];
+                            var yValues = [winrate, WR5];
+                            var titles = ["Current Win Rate", "Win Rate after FG5"]
+                            let size = yValues.length 
+                            var barColors = [
+                              "#b91d47",
+                              "#00aba9",
+                              "#2b5797",
+                              "#e8c3b9",
+                              "#1e7145"
+                            ];
+                        for(let i=0;i<2;i++)
+                            {
+                             new Chart('chart'+i, {
+                              type: "doughnut",
+                              data: {
+                                labels: xValues,
+                                datasets: [{
+                                  backgroundColor: barColors,
+                                  data: [yValues[i], 100-yValues[i]]
+                                  
+                                  
+                                }]
+                              },
+                              options: {
+                                title: {
+                                  display: true,
+                                  text: titles[i]
+                                }
+                              }
+                            });  
+                            }
+                      </script>
+                    <div>
+                        <canvas id="myChart" style="width:100%;max-width:500px"></canvas>
+                        <script>
+                            let FG1 = new Number(document.getElementById('FG1').value);
+                            let FG2 = new Number(document.getElementById('FG2').value);
+                            let FG3 = new Number(document.getElementById('FG3').value);
+                            let FG4 = new Number(document.getElementById('FG4').value);
+                            let FG5 = new Number(document.getElementById('FG5').value);
+                            var xValues = ["FG1", "FG2", "FG3", "FG4", "FG5"];
+                            var yValues = [FG1, FG2, FG3, FG4, FG5];
+                            var barColors = ["#454f5c", "#4a5c45","#3d2c41","#a97364","#836553"];
+
+                            new Chart("myChart", {
+                            type: "bar",
+                            data: {
+                                labels: xValues,
+                                datasets: [{
+                                backgroundColor: barColors,
+                                data: yValues
+                                }]
+                            },
+                            options: {
+                              title: {
+                                display: true, 
+                                text: "Market Value of Players after each game"
+                              }
+                            }
+                            });
+                        </script>
+                      </div>
+                                              
+
+              </div>
+            </div>
+                
+            </div>
+          </div>
+
+{% endblock %}
+ 

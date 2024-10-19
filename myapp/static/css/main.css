@@ -1,0 +1,255 @@
+/* Home page styling */
+
+.announcement-container{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    padding-left: 50px;
+    padding-right: 50px;
+    max-width: 78%;
+
+    border-style: solid;
+    border-radius: 3px;
+    border-width: 1px;
+    border-color: rgba(0,127,171,0.4);
+
+    background-color: #e5f2f6;
+
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 15px;
+}
+
+#earth {
+    width: 100px;
+    height: 100px;
+    background-image: url('/static/images/logos/ball.png');
+    border-radius: 50%;
+    background-size: 210px;
+    box-shadow: inset 16px 0 40px 3px rgb(0, 0, 0), inset -3px 0 6px 2px rgba(255, 255, 255, 0.2);
+    animation-name: rotate;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.button {
+    background-color: #836553;
+    color: white;
+    padding: 16px;
+    font-size: 12px;
+    border: none;
+    border-radius: 10%;
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px;
+}
+.buttonContainer{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    max-width: 78%;
+}
+
+
+@keyframes rotate {
+    from {
+        background-position: 0px;
+    }
+    to {
+        background-position: 210px;
+    }
+}
+
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
+footer{
+    background-color: rgb(95, 122, 145);
+    color:rgb(255, 255, 255);
+    text-align: center;
+    font-size: 14px;
+    padding: 15px;
+}
+
+/* Tables Page Styling */
+.players-table{
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.players-table thead tr {
+    background-color: #465e59;
+    color: #ffffff;
+    text-align: left;
+}
+.players-table th,
+.players-table td {
+    padding: 12px 15px;
+}
+
+.players-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.players-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.players-table tbody tr:last-of-type {
+    border-bottom: 2px solid #465e59;
+}
+
+
+.fa-w{
+    color: green;
+}
+.fa-l{
+    color: red;
+}
+.fa-d{
+    color: grey;
+}
+
+.dropbtn {
+    background-color: #836553;
+    color: white;
+    padding: 16px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Dropdown button on hover & focus */
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #a97364;
+  }
+  
+  .dropdown {
+    display: inline-block;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    border: 1px solid #ddd;
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content button {
+    color: black;
+    padding: 10px 8px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+  .show {display:block;}
+
+#myInput{
+    font-size: 16px;
+    width: 78%;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin: 12px;
+}
+
+/* Profiles Page Styling */
+.emp-profile{
+    padding: 3%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background:  #e8ecee;
+
+}
+.profile-img{
+    text-align: center;
+}
+.profile-img img{
+    width: 70%;
+    height: 100%;
+}
+.profile-head h5{
+    color: #333;
+}
+.profile-head h6{
+    color: #3f6693;
+}
+.winrate{
+    font-size: 12px;
+    color: #818182;
+    margin-top: 5%;
+}
+.winrate span{
+    color: #495057;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.profile-head .nav-tabs{
+    margin-bottom:5%;
+}
+.profile-head .nav-tabs .nav-link{
+    font-weight:600;
+    border: none;
+}
+.profile-head .nav-tabs .nav-link.active{
+    border: none;
+    border-bottom:2px solid #5a524e;
+}
+.profile-work{
+    padding: 14%;
+    margin-top: -15%;
+}
+.profile-work p{
+    font-size: 12px;
+    color: #818182;
+    font-weight: 600;
+    margin-top: 10%;
+}
+.profile-work a{
+    text-decoration: none;
+    color: #495057;
+    font-weight: 600;
+    font-size: 14px;
+}
+.profile-work ul{
+    list-style: none;
+}
+.profile-tab label{
+    font-weight: 600;
+}
+.profile-tab p{
+    font-weight: 600;
+    color: #5a524e;
+}
+
+.charts{
+    padding-bottom: 7%;
+}
+
+.player{
+    background-color: #967663;
+    display: flex;
+    justify-content: space-between;
+    margin: 1%;
+} 
+.playername{
+    font-size: 30px;
+}
+
+.playername img{
+    width: 25%;
+    height: auto;
+}

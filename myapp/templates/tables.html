@@ -1,0 +1,214 @@
+<!-- Ngwe Sandar Linn 21003873-->
+
+{% extends "home.html" %}
+{% block title %} Table {% endblock %}
+
+{% block head %}
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Linking to the main stylesheet -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+
+        <!-- Import Bootstrap CDM -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename = '/fontawesome-free-6.3.0-web/css/fontawesome.min.css')}}">    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    </head>
+{% endblock %}
+
+
+    <body>
+      {% block nav %}
+        <!-- NavBar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <!-- NavBar Logo-->
+              <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for ('index') }}" al>
+                  <img clas="navbar-logo" src="{{ url_for ('static', filename='/images/logos/logo-v1.png') }}" width="30px" height="30px">
+                </a>
+              </div>
+
+              <!-- NavBar Nav -->
+              <ul class="nav navbar-nav">
+                <li><a href="{{ url_for ('index') }}">Home</a></li>
+                <li class="active"><a href="{{ url_for ('tables') }}" al>Tables</a></li>
+
+            </ul>
+            </div>
+          </nav>
+        {% endblock %}
+          {% block content %}
+        <!--Announcement container-->
+        <div class="container announcement-container">
+            <i class="bi bi-info-circle"></i>Our website is undergoing some maintenance right now, we apologise for any complications you may experience
+        </div>
+
+        <!--Filter and Sort Bar-->
+        <div class="container">
+          <div class="dropdown">
+            <button onclick="drop()" class="dropbtn"> Sort By: </button>
+            
+            
+            <div id="myDropdown" class="dropdown-content">
+           
+              <button> <a href="{{ url_for('sort_win') }}">Win Rate</a>  </button>
+            
+            
+            <button> <a href="{{ url_for('sort_value') }}">Market Value</a>  </button>
+            
+            </div>
+          </div>
+          <div>
+            <input type="text" id="myInput" onkeydown="Search()" placeholder="Search for Player..">
+
+          </div>
+        </div>
+
+        
+        <!--Table-->
+        <div class="container">
+          <table class="players-table" id="playersTable">
+            <thead>
+              <tr>
+                <th> Player Name </th>
+                <th> Current Team </th>
+                <th> Team Location </th>
+                <th> Played </th>
+                <th> Won </th>
+                <th> FG1 </th>
+                <th> FG2 </th>
+                <th> FG3 </th>
+                <th> FG4 </th>
+                <th> FG5 </th> 
+                <th> Win Rate </th>
+                <th> Market Value </th>
+            </tr>
+            </thead>
+            
+            <tbody>
+              {% for index,row in df.iterrows() %}
+            <tr>
+                <td><a href="profiles/{{row['PLAYER NAME']}}">{{row['PLAYER NAME']}}</a></td>
+                <td>{{row['CURRENT TEAM']}}</td>
+                <td>{{row['TEAM LOCATION']}}</td>
+                <td>{{row['GAMES PLAYED THIS YEAR ']}}</td>
+                <td>{{row['GAMES WON']}}</td>
+                <td>
+                    {% if row['FG1'] == 'W' %}
+                    <i class="fa-solid fa-w"></i>
+                    {% endif %}
+                    {% if row['FG1'] == 'L' %}
+                    <i class="fa-solid fa-l"></i>
+                    {% endif %}
+                    {% if row['FG1'] == 'D' %}
+                    <i class="fa-solid fa-d"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if row['FG2'] == 'W' %}
+                    <i class="fa-solid fa-w"></i>
+                    {% endif %}
+                    {% if row['FG2'] == 'L' %}
+                    <i class="fa-solid fa-l"></i>
+                    {% endif %}
+                    {% if row['FG2'] == 'D' %}
+                    <i class="fa-solid fa-d"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if row['FG3'] == 'W' %}
+                    <i class="fa-solid fa-w"></i>
+                    {% endif %}
+                    {% if row['FG3'] == 'L' %}
+                    <i class="fa-solid fa-l"></i>
+                    {% endif %}
+                    {% if row['FG3'] == 'D' %}
+                    <i class="fa-solid fa-d"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if row['FG4'] == 'W' %}
+                    <i class="fa-solid fa-w"></i>
+                    {% endif %}
+                    {% if row['FG4'] == 'L' %}
+                    <i class="fa-solid fa-l"></i>
+                    {% endif %}
+                    {% if row['FG4'] == 'D' %}
+                    <i class="fa-solid fa-d"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if row['FG5'] == 'W' %}
+                    <i class="fa-solid fa-w"></i>
+                    {% endif %}
+                    {% if row['FG5'] == 'L' %}
+                    <i class="fa-solid fa-l"></i>
+                    {% endif %}
+                    {% if row['FG5'] == 'D' %}
+                    <i class="fa-solid fa-d"></i>
+                    {% endif %}
+                </td> 
+                <td>{{row['Win Percentage']}}</td>
+                <td>{{row['FG5 Value']}}k</td>
+
+            </tr>
+            
+            {% endfor %}
+            </tbody>
+            
+        </table>
+        </div>
+        
+
+        <!--Javascript-->
+        <script>
+
+        function checkForm(document){
+          if( document.getElementById("fileSelect").files.length == 0 ){
+            console.log("no files selected");
+            alert("No file selected.")
+                  }
+        }
+          
+
+        function drop(){
+          document.getElementById("myDropdown").classList.toggle("show");
+
+        }
+        
+        function Search(){
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("playersTable");
+          tr = table.getElementsByTagName("tr");
+
+          for(i=0; i<tr.length; i++){
+            td = tr[i].getElementsByTagName("td")[0];
+            if(td){
+              txtValue = td.textContent || td.innerText;
+              if(txtValue.toUpperCase().indexOf(filter)>-1){
+                tr[i].style.display="";
+              }
+              else{
+                tr[i].style.display="none";
+              }
+            }
+          }
+        }
+          </script>
+
+
+        </div>
+
+
+    </body>
+{% endblock %}
+

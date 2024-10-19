@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% block head %}
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Linking to the main stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+
+        <!-- Import Bootstrap CDM -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    </head>
+  {% endblock %}
+
+    <body>
+        {% block nav %}
+
+        <!-- NavBar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <!-- NavBar Logo-->
+              <div class="navbar-header">
+                <a class="navbar-brand" href="{{ url_for ('index') }}" al>
+                  <img clas="navbar-logo" src="{{ url_for ('static', filename='/images/logos/logo-v1.png') }}" width="30px" height="30px">
+                </a>
+              </div>
+
+              <!-- NavBar Nav -->
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ url_for ('index') }}">Home</a></li>
+                {% if uploaded==True %}
+
+                
+
+                <li><a href="{{ url_for ('tables') }}">Tables</a></li>
+
+                {%endif%}
+
+              </ul>
+            </div>
+          </nav>
+        {% endblock %}
+
+        {% block content %}
+
+
+
+        <!--Announcement container-->
+        <div class="container announcement-container">
+            <i class="bi bi-info-circle"></i>Our website is undergoing some maintenance right now, we apologise for any complications you may experience
+        </div>
+
+        <!-- CSV file upload -->
+        <div class="container">
+          <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <label for="fileSelect">Select a CSV file to upload:</label>
+            <div><input type="file" id="fileSelect" name="fileSelect" accept=".csv" /></div>
+            <div class="row">
+              <div class="buttonContainer">
+                <button class="button" type="sumbit" onsubmit=return checkForm() required>Upload</button>
+              <!-- Clear form button -->
+              <form action="{{ url_for('clear') }}">
+                  <button type="sumbit" class="button">Clear</button>
+              </form>
+              </div>
+              
+            </div>
+            
+           
+          </form>
+
+
+        
+
+        <form action="{{ url_for('upload') }}" method="GET" enctype="multipart/form-data">
+        {{ result|safe }}
+        <div class="container">
+        </div>
+        </form>
+
+
+        <script>
+
+        function checkForm(document)
+          if( document.getElementById("fileSelect").files.length == 0 ){
+            console.log("no files selected");
+            alert("No file selected.")
+                  }
+          </script>
+
+
+
+
+        <div id="earth" class="buttonContainer"></div>
+    
+        <script>
+
+        function checkForm(document)
+          if( document.getElementById("fileSelect").files.length == 0 ){
+            console.log("no files selected");
+            alert("No file selected.")
+                  }
+
+
+
+                 
+          function myFunction() {
+            alert("hello");
+          }
+              
+
+
+          </script> 
+
+        </body>
+
+      {% endblock %}
+        
+      <!-- Footer -->
+        {% block footer %}
+          <footer>
+            <div class="footer">
+              <p>
+                Systems Development Group Project 
+              </p>
+              <p>
+                Bradley Callum Jiah Mika Sabiha
+              </p>
+            </div>
+          </footer>
+        {% endblock %}
+
+
+
+
+</html>

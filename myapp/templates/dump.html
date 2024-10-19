@@ -1,0 +1,63 @@
+{% extends "home.html" %}
+{% block title %} Profiles {% endblock %}
+
+{% block content %}
+<input type="hidden" id="FG1" value ="{{playerInfo['FG1 Value']}}"/> 
+<input type="hidden" id="FG2" value ="{{playerInfo['FG2 Value']}}"/>     
+<input type="hidden" id="FG3" value ="{{playerInfo['FG3 Value']}}"/>     
+<input type="hidden" id="FG4" value ="{{playerInfo['FG4 Value']}}"/>     
+<input type="hidden" id="FG5" value ="{{playerInfo['FG5 Value']}}"/>
+<input type="hidden" id="winRate" value ="{{playerInfo['Win Percentage']}}"/>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-3"><canvas id="chart0" style="width:100%;max-width:500px"></canvas></div>
+              <div class="col-md-3"><canvas id="chart1" style="width:100%;max-width:500px"></canvas></div>
+              <div class="col-md-3"><canvas id="chart2" style="width:100%;max-width:500px"></canvas></div>
+              <div class="col-md-3"><canvas id="chart3" style="width:100%;max-width:500px"></canvas></div>
+              <div class="col-md-3"><canvas id="chart4" style="width:100%;max-width:500px"></canvas></div>
+            </div>
+
+                          <script>
+                            let winrate = new Number(document.getElementById('winRate').value);
+                            document.write(winrate)
+                            var xValues = ["Win Percentage"];
+                            var yValues = [10, 3, 7, 5, 4];
+                            let size = yValues.length 
+                            var barColors = [
+                              "#b91d47",
+                              "#00aba9",
+                              "#2b5797",
+                              "#e8c3b9",
+                              "#1e7145"
+                            ];
+                            for(let i=0;i<size;i++)
+                            {
+                             new Chart('chart'+i, {
+                              type: "doughnut",
+                              data: {
+                                labels: xValues,
+                                datasets: [{
+                                  backgroundColor: barColors,
+                                  data: [yValues[i], 100-yValues[i]]
+                                  
+                                  
+                                }]
+                              },
+                              options: {
+                                title: {
+                                  display: true,
+                                  text: "Player Data"
+                                }
+                              }
+                            });  
+                            }
+                             
+                            
+                            
+                            </script>
+                            
+            </div>
+          </div>
+
+
+{% endblock %}   
